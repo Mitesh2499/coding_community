@@ -1,0 +1,140 @@
+
+
+    {% extends 'compiler/base.html' %}
+    {% block content %}
+    <div class="container" >
+      <div class="row">
+        <div class="col-9 " >
+          <div class="shadow-lg mt-4  p-5" style="background: #fff">
+            <div>
+                <h6>Task</h6>
+                  <p style="white-space: pre-line">{{question.que}}   </p>  
+            </div>
+              <div>
+                <h6>Input Format</h6>
+                <p style="white-space: pre-line">
+                  {{question.input_format}}
+                </p>
+                  </div>
+                  <div>
+                    <h6>Output Format</h6>
+                    <p style="white-space: pre-line">
+                      {{question.input_format}}
+                    </p>
+                      </div>
+              <div>
+                 <h6>Constraints</h6>
+                <p style="white-space: pre-line">{{question.constraint}}</p> 
+              </div>
+              
+              <div>
+                <h6> Sample Input 0</h6>
+                <div style="background: #F3F7F7" class="p-4 shadow">
+                 <p style="white-space: pre-line">{{question.sample_input}}</p>
+                </div>
+              </div>
+              <div class="mt-2">
+               <h6>Sample Output 0</h6>
+               <div style="background: #F3F7F7" class="p-4 shadow">
+                  <p style="white-space: pre-line">{{question.sample_output}}</p>
+              </div>
+              </div>
+              <div>
+                
+              </div>
+              </div>
+
+              <div class="mt-4 ">
+                  <form method="POST" id="code-form">
+                      {% csrf_token %}
+                      <div class="py-2 px-3"  style="background: rgb(182, 182, 179)" >
+                        {{form.language}}
+                      </div>
+                      <div class="">
+                            
+                        <div class="control ">
+                          {{ form.code }}
+        
+                        </div>
+                        
+                        <div class="control my-3">
+                          <button type="submit" class="btn btn-success">
+                            submit
+                          </button>
+                         
+                        </div>
+                        <div class="control ">
+                          {{ form.user_input }}
+        
+                        </div>
+                      </div>
+                    </form>
+              </div>
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+    </div>
+    
+       
+    <!---
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-4">
+            <form method="POST">
+              {% csrf_token %}
+              <div>{{ form.language }}</div>
+              <div class="field has-addons">
+                    
+                <div class="control is-expanded">
+                  {{ form.code }}
+
+                </div>
+                <div class="control">
+                  <button type="submit" class="button is-info">
+                    submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    -->
+    <div class="container">
+
+    
+    <section >
+        {% if code_output.output %}
+            <div class="alert alert-success" role="alert">
+                <h3>Output : </h3>
+                
+                <pre class="gb wf" id="preOutput"> 
+                    {{code_output.output}}    
+           </pre>
+              </div>
+        {% else %}
+            {% if code_output.rntError %}
+                <div class="alert alert-danger" role="alert">
+                    <h3>Runtime Error : </h3>
+                    <h5>{{code_output.rntError}}</h5>
+                  </div>
+            {% elif code_output.cmpError %}
+                <div class="alert alert-danger" role="alert">
+                    <h3>Compile Time Error : </h3>
+                    <h5>{{code_output.cmpError}}</h5>
+                  </div>
+            {% endif %}
+        
+        {% endif %}
+            
+    
+    </section>
+</div>
+    
+
+{% endblock content %}

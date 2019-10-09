@@ -1,0 +1,40 @@
+{% extends 'compiler/base.html' %}
+{% block content %}
+<div class="">
+	<div class="shadow" style="background:#fff" >
+
+		<div class="container py-4">
+			<h6>Dashboard</h6>
+		</div>
+		
+	</div>
+</div>
+<div class="container mt-4">
+	<div class="row">
+		<div class="col-lg-8 col-md-8">
+        {% for question in  quetions %}
+			<div class="card border-0 shadow mt-2">
+				<div class="card-body">
+					<div class="d-flex justify-content-between">
+						<div>
+              <h6 class="card-title">{{question.title}}</h6>
+              
+							<p class="card-subtitle">marks:{{question.marks}}    <span>Level: {{question.level}}</span></p>
+						</div>
+						<div>
+							<a  class="btn btn-success" id="solve" href="{% url 'compile' question.id %}">Solved</a>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+				
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+   <p></p>
+ 
+{% endblock content %}

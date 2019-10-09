@@ -1,0 +1,22 @@
+{% extends 'compiler/base.html' %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container content-section mt-3 shadow-lg p-3">
+        <a href="{% url 'profile' %}"  class="btn  "><i class="fas fa-user"></i> {{ user.username }}</a>
+   
+    <div class="media">
+       <a href="{{ user.profile.image.url }}"> <img width="100" height="100" src="{{ user.profile.image.url }}" class="rounded-circle account-img img-thumbnail img-fluid img">
+       </a>
+       
+        <div class="media-body pl-2">
+            <h2 class="account-heading font-weight-bold">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+            <p class="lead bio">{{ user.profile.bio }}</p>
+        </div>
+    </div>
+   
+</div>
+
+ 
+{% endblock content %}

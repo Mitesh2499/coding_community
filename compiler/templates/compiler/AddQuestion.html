@@ -1,0 +1,101 @@
+
+
+    {% extends 'compiler/base.html' %}
+    {% block content %}
+    <div class="container" >
+      <div class="row">
+        <div class="col-9 " >
+         
+
+              <div class="mt-4 ">
+                  <form method="POST">
+                      {% csrf_token %}
+                      <div class="py-2 px-3"  style="background: rgb(182, 182, 179)" >
+                        {{form}}
+                      </div>
+                      <div class="">
+                            
+                        <div class="control ">
+                         
+        
+                        </div>
+                        <div class="control my-3">
+                          <button type="submit" class="btn btn-success">
+                            submit
+                          </button>
+                          <button type="submit" class="btn btn-success">
+                            compile
+                          </button>
+                        </div>
+                        <div class="control ">
+                          
+        
+                        </div>
+                      </div>
+                    </form>
+              </div>
+        </div>
+        <div class="col-3">
+
+        </div>
+      </div>
+    </div>
+    
+       
+    <!---
+    <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-offset-4 is-4">
+            <form method="POST">
+              {% csrf_token %}
+              <div>{{ form.language }}</div>
+              <div class="field has-addons">
+                    
+                <div class="control is-expanded">
+                  {{ form.code }}
+
+                </div>
+                <div class="control">
+                  <button type="submit" class="button is-info">
+                    submit
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    -->
+    <div class="container">
+
+    
+    <section >
+        {% if code_output.output %}
+            <div class="alert alert-success" role="alert">
+                <h3>Output : </h3>
+                <h5>{{code_output.output}}</h5>
+              </div>
+        {% else %}
+            {% if code_output.rntError %}
+                <div class="alert alert-danger" role="alert">
+                    <h3>Runtime Error : </h3>
+                    <h5>{{code_output.rntError}}</h5>
+                  </div>
+            {% elif code_output.cmpError %}
+                <div class="alert alert-danger" role="alert">
+                    <h3>Compile Time Error : </h3>
+                    <h5>{{code_output.cmpError}}</h5>
+                  </div>
+            {% endif %}
+        
+        {% endif %}
+            
+    
+    </section>
+</div>
+    
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+{% extends 'compiler/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    
+    <div class="row">
+        <div class="col-8 mx-auto">
+            {% for tutorial in  tutorials %}
+            <div class="card  shadow mt-5">
+                    <div class="card-img px-3 py-2">
+                        <div class="d-flex">
+                            <div class="d-flex">
+                                <img src="{{ tutorial.author.profile.image.url  }}" alt="" class=" float-left img-fluid img-thumbnail rounded-circle icon">
+					
+                                <h6 class="align-self-center pl-3 pt-1">{{tutorial.author}}</h6>
+                                
+                            </div>
+                            <div class="ml-auto">
+                                <a href="{% url 'update_tutorials' tutorial.id %}"  class="btn btn-primary m-2"><i class=""></i> Update</a>
+                                <a href="{% url 'delete_tutorials' tutorial.id %}"  class="btn btn-danger m-2"><i class=""></i> Delete</a>
+                                
+                            </div>
+                        </div>	
+                        
+                    </div>
+                    <div class="px-3">
+                        <h5>{{ tutorial.title }}</h5>
+                    </div>
+                    <div class="embed-responsive embed-responsive-21by9">
+                        <iframe id="iframe" style="width:100%;height:50vh" class=""
+src="{{ tutorial.link }}">
+
+                         </iframe>
+                 </div>   
+                 <div class="p-2">
+                    <p class="">
+                        {{ tutorial.desc }}
+                    </p>
+                </div>
+                
+                    
+                   
+                </div>
+            {% endfor %}
+               
+        </div>
+    </div>
+</div>  
+
+{% endblock content %}
