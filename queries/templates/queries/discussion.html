@@ -1,0 +1,160 @@
+{% extends 'compiler/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<style>
+
+</style>
+<div class="container-fluid">
+    <!-- <div class="row">
+        <div class="ml-auto">
+            <a href="{% url 'user_tutorials' user %}" class="btn btn-success m-2"><i class=""></i> {{ user }} Posts</a>
+            <a href="{% url 'ask-question' %}" class="btn btn-primary m-2"><i class=""></i> Upload Tutorial</a>
+
+        </div>
+    </div>-->
+
+
+    <div class=" row" style="background:#fff">
+        <div class="col-lg-2 shadow" style="background:rgb(250, 250, 250); border-right:2px solid #0f0">
+            <div class="p-3">
+                <h5>Related Tags</h5>
+            </div>
+
+            <ul class="list-unstyled">
+                {% for tag in tags %}
+                <div class="px-2 py-3 my-2 mx-1 shadow text-center tag">
+                    <li> <a href="{% url 'discussion-tag' tag.slug %}">{{ tag.name }}</a></li>
+                </div>
+
+                {% endfor %}
+
+            </ul>
+
+
+        </div>
+        <div class=" col-lg-8 col-md-10 " style="background:#fff">
+            <a href="{% url 'ask-question' %}" class="btn btn-primary">Ask Question</a>
+
+            {% for query,likes,user_liked in  queries %}
+            <div class="  mt-5 shadow py-3 px-3">
+                <div class="card-img px-3 py-2 ">
+                    <div class="d-flex">
+
+                        <img src="{{ query.author.profile.image.url  }}" alt=""
+                            class=" float-left img-fluid img-thumbnail rounded-circle icon">
+
+                        <h6 class="align-self-center pl-3 pt-1">{{query.author}}</h6>
+
+                    </div>
+                </div>
+                <div class="px-3">
+                    <h5><a href="{% url 'detail_discussion' query.id %}"
+                            class="text-dark text-decoration-none">{{ query.question }}</a>
+                    </h5>
+                    <div style="" class="py-3">
+                        {% for tag in query.tags.all %}
+                        <div
+                            style="display: inline;margin:5px; padding: 5px; background: #CEE0ED; color: #000; font-size: 12px;">
+                            <a href="{% url 'discussion-tag' tag.slug %}">{{ tag.name }}</a>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <p><span class="like-count" count="{{ query.id}}">{{ likes }} </span> Likes</p>
+                    {% if user_liked %}
+                    <i class="fa fa-thumbs-up pr-2" liked="true" style="color:#00F" type_btn="question"
+                        btn_id="{{ query.id}}"></i>
+
+                    {% else %}
+
+                    <i class="fa  fa-thumbs-o-up pr-2" liked="false" type_btn="question" btn_id="{{ query.id}}"></i>
+
+                    {% endif %}
+
+
+                </div>
+            </div>
+
+
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+<script>
+    /*
+    $(document).ready(function () {
+        id = $("button[btn_id]").attr("btn_id")
+        type = $("button[type_btn]").attr("type_btn")
+        console.log(id, type)
+    })
+    $(document).ready(function () {
+        $("button[btn_id]").click(function () {
+            query_id = $(this).attr("btn_id")
+            type = $("button[type_btn]").attr("type_btn")
+            console.log(query_id)
+
+            $.ajax({
+                url: "ajax/like",
+                data: {
+                    'query_id': query_id
+
+                },
+                success: function (data) {
+                    console.log(data)
+                    $("span[count=" + query_id + "]").text(data)
+
+                    if (data.is_taken) {
+                        console.log(data)
+                        alert("A user with this username already exists.");
+                    }
+                }
+
+            })
+        })
+
+    })
+*/
+
+    /*-----------------New -------------*/
+
+    $(document).ready(function () {
+        $("i[liked=false]").click(function () {
+            $(this).removeClass("fa-thumbs-o-up")
+            $(this).addClass("fa-thumbs-up")
+            $(this).css({
+                "color": "#00F"
+            })
+        })
+
+        $("i[btn_id]").click(function () {
+            query_id = $(this).attr("btn_id")
+            type = $("button[type_btn]").attr("type_btn")
+            console.log(query_id)
+
+
+
+            $.ajax({
+                url: "ajax/like",
+                data: {
+                    'query_id': query_id
+
+                },
+                success: function (data) {
+                    console.log(data)
+
+                    $("span[count=" + query_id + "]").text(data)
+                    if (data.is_taken) {
+                        console.log(data)
+                        alert("A user with this username already exists.");
+                    }
+                }
+
+            })
+        })
+
+    })
+</script>
+{% endblock content %}

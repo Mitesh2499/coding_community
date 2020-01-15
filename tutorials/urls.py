@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('tutorials/',TutorialListView.as_view(),name='tutorials' ),
+    path('like/',views.like,name='like' ),
+   
     path('create_tutorials/',TutorialCreateView.as_view(),name='create_tutorials' ),
     path('tutorials/<int:pk>/update',TutorialUpdateView.as_view(),name='update_tutorials' ),
       path('tutorials/<int:pk>/delete',TutorialDeleteView.as_view(),name='delete_tutorials' ),

@@ -1,15 +1,26 @@
 
 from django.views.generic import ListView,CreateView,UpdateView,DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from .models import Tutorial
+from .models import Tutorial,Like
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+
 # Create your views here.
 class TutorialListView(ListView):
     model=Tutorial
     template_name='tutorials/tutorials.html'
     context_object_name='tutorials'
     
+def like(request):
+    if request.method == 'GET':
+        post_id = request.GET['post_id']
+        likedpost = Tutorial.objects.get(id = post_id )
+        m = Like( tutorial=likedpost,userlike=request.user )
+        m.save()
+        return HttpResponse('success')
+    else:
+        return HttpResponse("unsuccesful")
 
 
    

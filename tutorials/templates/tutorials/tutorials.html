@@ -3,80 +3,87 @@
 {% block content %}
 <div class="container">
     <div class="row">
-            <div class="ml-auto">
-                    <a href="{% url 'user_tutorials' user %}"  class="btn btn-success m-2"><i class=""></i> {{ user }} Posts</a>
-                    <a href="{% url 'create_tutorials' %}"  class="btn btn-primary m-2"><i class=""></i> Upload Tutorial</a>
-              
-            </div>
+        <div class="ml-auto">
+            <a href="{% url 'user_tutorials' user %}" class="btn btn-success m-2"><i class=""></i> {{ user }} Posts</a>
+            <a href="{% url 'create_tutorials' %}" class="btn btn-primary m-2"><i class=""></i> Upload Tutorial</a>
+
+        </div>
     </div>
-    
+
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
             {% for tutorial in  tutorials %}
-           <div class="card  shadow mt-5">
-                    <div class="card-img px-3 py-2">
-                        <div class="d-flex">
-                            
-                            <img src="{{ tutorial.author.profile.image.url  }}" alt="" class=" float-left img-fluid img-thumbnail rounded-circle icon">
-					
-							<h6 class="align-self-center pl-3 pt-1">{{tutorial.author}}</h6>
-								
-                        </div>	
-                    </div>
-                    <div class="px-3">
-                        <h5>{{ tutorial.title }}</h5>
-                    </div>
-                    
-                   
-                    <div class="embed-responsive embed-responsive-21by9">
-                           <iframe id="iframe" style="width:100%;height:50vh" class=""
-src="{{ tutorial.link }}" onload="mylink(this.src)">
+            <div class="card  shadow mt-5">
+                <div class="card-img px-3 py-2">
+                    <div class="d-flex">
 
-                            </iframe>
-                    </div>    
-                    
-                    <div class="p-2">
-                        <p class="">
-                            {{ tutorial.desc }}
-                        </p>
+                        <img src="{{ tutorial.author.profile.image.url  }}" alt=""
+                            class=" float-left img-fluid img-thumbnail rounded-circle icon">
+
+                        <h6 class="align-self-center pl-3 pt-1">{{tutorial.author}}</h6>
+
                     </div>
-                
-                    
-                   
                 </div>
-               
+                <div class="px-3">
+                    <h5>{{ tutorial.title }}</h5>
 
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12 mt-3">
-                            <div class="card">
-                                <div class="card-horizontal" style="display: flex;
+                </div>
+
+
+                <div class="embed-responsive embed-responsive-21by9">
+                    <iframe id="iframe{{ tutorial.id }}" style="width:100%;height:50vh" class=""
+                        src="{{ tutorial.link }}">
+
+                    </iframe>
+                </div>
+
+                <div class="p-2">
+                    <p class="">
+                        {{ tutorial.desc }}
+                    </p>
+                    <a class="likebutton btn btn-primary btn-lg" id="like{{ tutorial.id }}" href="#"
+                        data-catid="{{ tutorial.id }}">Like</a> </p>
+                    <p id="message{{tutorial.id}}">
+
+                </div>
+
+
+
+            </div>
+
+
+            <!---   <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="card">
+                            <div class="card-horizontal" style="display: flex;
                                 flex: 1 1 auto;">
-                                    <div class="">
-                                        <p>{{ tutorial.link }}</p>
-                                        <div class="embed-responsive embed-responsive-21by9">
-                                            <iframe id="iframe{{ tutorial.id }}" style="width:100%;height:50vh" class=""
-                 src="{{ tutorial.link }}" onload="mylink(this.src,this.id)">
-                 
-                                             </iframe>
-                                     </div>
-                                     </div>
-                                    <div class="card-body">
-                                        <h4 class="card-title">Card title</h4>
-                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                <div class="">
+                                    <p>{{ tutorial.link }}</p>
+                                    <div class="embed-responsive embed-responsive-21by9">
+                                        <iframe id="iframe{{ tutorial.id }}" style="width:100%;height:50vh" class=""
+                                            src="{{ tutorial.link }}" onload="mylink(this.src,this.id)">
+
+                                        </iframe>
                                     </div>
                                 </div>
-                                <div class="card-footer">
-                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                <div class="card-body">
+                                    <h4 class="card-title">Card title</h4>
+                                    <p class="card-text">Some quick example text to build on the card title and make up
+                                        the bulk of the card's content.</p>
                                 </div>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>-->
             {% endfor %}
-               
+
         </div>
     </div>
-</div>  
+</div>
 
 {% endblock content %}

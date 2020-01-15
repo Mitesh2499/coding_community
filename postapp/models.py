@@ -1,12 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
+from django.utils.timezone import now
 # Create your models here.
 class post(models.Model):
     title=models.CharField(max_length=100)
     post=models.FileField(null=True,blank=True,upload_to='Files')
-    description=models.TextField()
-    date_upload=models.DateTimeField(auto_now_add=True)
+    description=RichTextField()
+    date_upload=models.DateTimeField(default=now)
     author=models.ForeignKey(User,on_delete=models.CASCADE)
 
     def __str__(self):
@@ -31,3 +33,8 @@ class like(models.Model):
     post=models.ForeignKey(post,on_delete=models.CASCADE,related_name='likes')
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     date_upload=models.DateTimeField(auto_now_add=True)
+
+
+    class Meta:
+        unique_together = (("user", "post"),)
+        ordering = ["-date_upload"]

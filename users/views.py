@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserSignupForm,UserUpdateForm,ProfileUpdateForm
+from .models import follow
+from postapp.models import post
 # Create your views here.
 def signup(request):
     if request.method == 'POST':
@@ -41,5 +43,24 @@ def profile(request):
 
 @login_required
 def userprofile(request):
+    f1=follow.objects.filter(following=request.user).count()
+    print(f1)
+    f2=follow.objects.filter(follower=request.user).count()
+    print(f2)
+    posts=post.objects.filter(author=request.user)
+    context={"following":f2,"follower":f1,"posts":posts}
+    return render(request,'users/userprofile.html',context)
 
-    return render(request,'users/userprofile.html')
+def follower(request):
+    following_count=follow.objects.filter(following=request.user).count()
+    following_users=follow.objects.filter(following=request.user)
+    context={"follow":True,"follow_count":following_count,"follow_users":following_users}
+    return render(request,'users/follow.html',context)
+    
+def following(request):
+    follower_count=follow.objects.filter(follower=request.user).count()
+    follower_users=follow.objects.filter(follower=request.user)
+    context={"follow":False,"follow_count":follower_count,"follow_users":follower_users}
+    return render(request,'users/follow.html',context)
+
+

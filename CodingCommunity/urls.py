@@ -23,13 +23,18 @@ urlpatterns = [
     path('', include('compiler.urls')),
     path('', include('postapp.urls')),
     path('', include('tutorials.urls')),
+     path('', include('queries.urls')),
+     path('ckeditor/',include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
     path('signup/',user_views.signup,name='signup'),
     #path('profile/',user_views.profile,name='profile'),
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     path('profile/',user_views.profile,name='profile'),
-     path('userprofile/',user_views.userprofile,name='userprofile')
+     path('userprofile/',user_views.userprofile,name='userprofile'),
+     path('follower/',user_views.follower,name='follower'),
+      path('following/',user_views.following,name='following')
+
 
 ]
 

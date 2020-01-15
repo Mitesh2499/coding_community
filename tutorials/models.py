@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+
 import re
 # Create your models here.
 class Tutorial(models.Model):
@@ -19,3 +20,7 @@ class Tutorial(models.Model):
         return reverse("tutorials")
 
     
+class Like(models.Model):
+    tutorial=models.ForeignKey(Tutorial,on_delete=models.CASCADE)
+    userlike=models.ForeignKey(User,on_delete=models.CASCADE,related_name="tutorial_like")
+    dateliked=models.DateTimeField(default=timezone.now)

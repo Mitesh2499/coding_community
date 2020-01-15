@@ -1,0 +1,108 @@
+{% extends 'compiler/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container bg-mybg">
+    <div class="row ">
+        <div class="ml-auto">
+            <a href="{% url 'user-post' user %}" class="btn btn-success m-2"><i class=""></i> {{ user }} Posts</a>
+
+            <a href="{% url 'post-form' %}" class="btn btn-primary m-2"><i class=""></i> Create Post</a>
+
+        </div>
+
+    </div>
+    <div class="row   ">
+        <div class="col-md-7 mx-auto">
+
+            {% for post,data in  posts %}
+            <div class="card  shadow mt-5">
+                <div class="card-img px-3 py-2">
+                    <div class="d-flex">
+
+                        <img src="{{ post.author.profile.image.url  }}" alt=""
+                            class=" float-left img-fluid img-thumbnail rounded-circle icon">
+
+                        <h6 class="align-self-center pl-3 pt-1">{{post.author}}</h6>
+
+                    </div>
+                </div>
+                {% if post.post %}
+                <div class="">
+                    <img src="{{ post.post.url }}" alt="" class="img-fluid  " style="width:100%;height:100%">
+                </div>
+                {% endif %}
+
+                <div class="p-3">
+                    <div class="py-1">
+                        <div class="caption p-0">
+                            <p>
+                                {{post.description | safe}}
+                            </p>
+                        </div>
+                        {% if data.is_liked %}
+                        <a href="{% url 'post-like' post.id %}" id="like" disabled><i class="fa fa-heart pr-2"
+                                style="color: red;"></i></a>
+                        {% else %}
+                        <a href="{% url 'post-like' post.id %}" id="like"><i class="fa fa-heart-o pr-2"></i></a>
+
+                        {% endif %}
+
+
+
+                        <i class="fa fa-comment-o pr-2"></i>
+                        <i class="fa fa-share-square-o pr-2"></i>
+
+                        <p><span class="like-count" count="{{ data.id}}">{{ data.likescount }} </span> Likes</p>
+                        <p class="font-weight-bold m-0">{{ data.likescount }} likes</p>
+                    </div>
+
+                    <p class=" text-muted">view all {{ data.commentscount }} comment</p>
+
+
+
+                    <div class="comment py-1">
+                        {% for comment in data.comments %}
+                        <p class="user-com"><span class="font-weight-bold ">{{comment.user}}</span>
+                            {{comment.comment_text}}</p>
+                        <!-- <p id="date-time">{{comment.date_upload }}</p>-->
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+                <div>
+                    <form method="POST" id="code-form" class="form-inline" action=" {% url  'comment' post.id %} ">
+                        {% csrf_token %}
+                        <div class="input-group flex-fill">
+                            <input type="text" name="comment" class="form-control  " placeholder=" comment here...."
+                                style="border-radius:0">
+
+                            <div class="input-group-append">
+                                <input type="submit" class="form-control  btn btn-outline-primary   "
+                                    style="border-radius:0" value="comment">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}
+   $.ajax({
+                type: "POST",
+                url: "comment/",
+                data: {
+                    'comment': $('#comment').val() // from form
+                },
+                success: function (data) {
+                    console.log(data)
+                }
+            });
+            return false; //<---- move it here
+      

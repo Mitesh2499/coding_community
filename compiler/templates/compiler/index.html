@@ -1,4 +1,194 @@
 {% extends 'compiler/base.html' %}
 {% block content %}
-<h1>Home Page</h1>
+<style>
+    .btn-custom {
+        border-radius: 0px;
+        background: #03b603;
+        color: #fff;
+        padding: 10px 20px;
+    }
+
+    .btn-custom:hover {
+        border-radius: 0px;
+        border-width: 2px;
+        border-color: #03b603;
+        background: #fff;
+        color: #03b603;
+        padding: 10px 20px;
+    }
+
+    .services {
+        border-bottom: solid 5px #03b603;
+        padding-bottom: 10px;
+    }
+
+    .skills {
+        border: solid 1px #03b603;
+    }
+
+    .skills tr td {
+        background: #fff;
+        padding: 10px 20px;
+        font-size: 20px;
+        font-weight: bold;
+        border: solid 1px #03b603;
+        text-align: center;
+
+    }
+
+    .home-icon {
+        font-size: 24px;
+    }
+</style>
+<div class="container p-2">
+    <!--- start Header Block-->
+    <div class="row">
+        <div class="col-8">
+            <img src="../../../media/images/code-editor.svg" class="img-fluid p-0" alt="">
+        </div>
+        <div class="col-4">
+            <div class="d-flex my-auto h-100">
+                <div class="flex-column  align-self-center pb-5 mb-5">
+                    <h1>Explore New Things With Us</h1>
+
+                    <p class="text-dark font-weight-bold">Code Less, Think More</p>
+                    <button class="btn btn-custom shadow"><span class="font-weight-bold">Join
+                            Now</span></button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <!--- End Header Block-->
+    <div class="row">
+        <div class="container">
+            <div class="row">
+                <h3 class="text-center mx-auto services">Skills available for practice</h3>
+
+            </div>
+            <div class="row p-4">
+                <table class="table skills">
+
+                    <tbody>
+                        <tr>
+                            <td scope="row"> <img src="media/images/icons/6.svg" alt="" class="img-fluid"> C</td>
+                            <td><img src="media/images/icons/7.svg" alt="" class="img-fluid">C++</td>
+                            <td><img src="media/images/icons/9.svg" alt="" class="img-fluid">Python</td>
+                        </tr>
+                        <tr>
+                            <td scope="row"><img src="media/images/icons/8.svg" alt="" class="img-fluid">Java</td>
+                            <td>Data Structure</td>
+                            <td><img src="media/images/icons/16.svg" alt="" class="img-fluid">Regex</td>
+                        </tr>
+                        <tr>
+                            <td scope="row">Functional Programming</td>
+                            <td>Algorithms</td>
+                            <td><img src="media/images/icons/13.svg" alt="" class="img-fluid">Artificial Intelliegnce
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="row">
+        <div class="container">
+            <div class="whats-in-my-website container">
+                <div class="row">
+                    <h3 class="text-center mx-auto services mb-4">We provide</h3>
+
+                </div>
+                <div class="row">
+                    <div class="col-8 col-md-6 ">
+                        <div class="card px-4 py-3 shadow">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5>Ask Questions and Learn </h5>
+                                    <p>Any one can ask questions and get relevant answer from others</p>
+                                </div>
+                                <div>
+                                    <i class="fa fa-stack-overflow home-icon" aria-hidden="true"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-6 ">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4  col-md-6 ">
+
+                    </div>
+                    <div class="col-8 col-md-6 ">
+                        <div class="card px-4 py-3 shadow">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="fa fa-github home-icon" style="font-size:30px" aria-hidden="true"></i>
+
+                                </div>
+                                <div>
+                                    <h5>Share your projects </h5>
+                                    <p>Share your projects using github link and get suggestions</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8 col-md-6 ">
+                        <div class="card px-4 py-3 shadow">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <h5>Share your views through posts</h5>
+                                    <p>Get Knowlege of Technology</p>
+                                </div>
+                                <div>
+                                    <i class="fa fa-share home-icon" aria-hidden="true"></i>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-6 ">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4  col-md-6 ">
+
+                    </div>
+                    <div class="col-8 col-md-6 ">
+                        <div class="card px-4 py-3 shadow">
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i class="fa fa-youtube home-icon" style="font-size:30px" aria-hidden="true"></i>
+
+                                </div>
+                                <div>
+                                    <h5>Get Best Tutorial </h5>
+                                    <p>Get best tutorials from youtube and learn new Technologies</p>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+</div>
 {% endblock content %}

@@ -1,155 +1,243 @@
-
 {% load staticfiles  %}
 <!doctype html>
 <html lang="en">
-  <head>
-    
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" >
-       <link rel="stylesheet" href="{% static 'compiler/main.css' %}">
-    {% if FileName %}
-        <title>Coding Community</title>
-    {% else %}
-        <title>Coding Community</title>
-    {% endif %}
-    
-   
+<head>
 
-    </script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.css">
+  <link rel="stylesheet" href="{% static 'compiler/main.css' %}">
+
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+  </script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+  </script>
+  <script src="{% static 'compiler/main.js' %}"></script>
+  <script src="{% static 'compiler/edit_area_full.js' %}"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
+
+
+
+  {% if FileName %}
+  <title>Coding Community</title>
+  {% else %}
+  <title>Coding Community</title>
+  {% endif %}
+
+
+
+  </script>
 </head>
-  <body style="background: #F3F7F7">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-bg">
-                <a class="navbar-brand font-weight-bold" href="{% url 'index' %}">Coding Community</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-              
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    
-                  <ul class="navbar-nav mr-auto">
-                      {% if user.is_authenticated %}
-                  <li class="nav-item active">
-                      
-                      <a class="nav-link text-white" href="{% url 'practice' %}"><i class="fas "></i> Practice <span class="sr-only">(current)</span></a>
-                           
-                    </li>
-                    <li class="nav-item active">
-                      
-                      <a class="nav-link text-white" href="{% url 'post-home' %}"><i class="fas"></i> Post <span class="sr-only">(current)</span></a>
-                           
-                    </li>
-                    <li class="nav-item">
-                        <a href="{% url 'tutorials' %}"  class="nav-link text-white"><i class="fas"></i>Tutorials </a>
-            
-                    </li>
-                    {% else %}
 
-                    <li class="nav-item">
-                        <a href="#"  class=" nav-link text-white"><i class="fas fas-home"></i>Home </a>
-            
-                    </li>
-                    {% endif %}
-                  </ul>
-                  
-                 
-              
-                    {% if user.is_authenticated %}
-                              
-                              <a href="{% url 'userprofile' %}"  class="nav-link"><i class="fas fa-user"></i> {{ user.username }} </a>
-                             
-                    
-                              <a href="{% url 'logout' %} " class="nav-link"><i class="fas fa-sign-out-alt"></i> Log Out</a>
-                    
-                    {% else %}
-                    <a href="{% url 'login' %} " class="nav-link text-white"><i class="fas fa-user-tie"></i> Log In</a>
-                   
-                    <a href="{% url 'signup' %} " class="nav-link text-white"> <i class="fas fa-sign-in-alt"></i> Sign Up</a>
-                    {% endif %}
-                  
-                </div>
-              </nav>
-      <div class=" ">
-        {% if messages %}
-          {% for message in messages %}
-              <div class="alert alert-{{ message.tags }}">
-                {{ message }}
-              </div>
-          {% endfor %}
+<body style="background: #F3F7F7">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark my-bg" style="border-bottom: 2px solid #00ff00">
+    <a class="navbar-brand font-weight-bold" href="{% url 'index' %}">Coding Community</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      <ul class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item active">
+
+          <a class="nav-link text-white" href="{% url 'practice' %}"><i class="fas "></i> Practice <span
+              class="sr-only">(current)</span></a>
+
+        </li>
+        <li class="nav-item active">
+
+          <a class="nav-link text-white" href="{% url 'post-home' %}"><i class="fas"></i> Post <span
+              class="sr-only">(current)</span></a>
+
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'tutorials' %}" class="nav-link text-white"><i class="fas"></i>Tutorials </a>
+
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'discussion' %}" class="nav-link text-white"><i class="fas"></i>Discussion </a>
+
+        </li>
+
+        {% else %}
+
+        <li class="nav-item">
+          <a href="#" class=" nav-link text-white"><i class="fas fas-home"></i>Home </a>
+
+        </li>
         {% endif %}
+      </ul>
+
+
+
+      {% if user.is_authenticated %}
+
+      <a href="{% url 'userprofile' %}" class="nav-link text-white"><i class="fas fa-user"></i> {{ user.username }} </a>
+
+
+      <a href="{% url 'logout' %} " class="nav-link text-white"><i class="fas fa-sign-out-alt"></i> Log Out</a>
+
+      {% else %}
+      <a href="{% url 'login' %} " class="nav-link text-white"><i class="fas fa-user-tie"></i> Log In</a>
+
+      <a href="{% url 'signup' %} " class="nav-link text-white"> <i class="fas fa-sign-in-alt"></i> Sign Up</a>
+      {% endif %}
+
+    </div>
+  </nav>
+  <div class=" ">
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
     {% block content %}
-      
+
     {% endblock  %}
-</div> 
-<footer class="bg-dark mt-3 py-3 sticky-bottom">
-<h6 class="text-white text-center">Footer</h6>
-</footer>
+  </div>
+  <footer class="bg-dark mt-3 py-3 ">
+    <h6 class="text-white text-center">Footer</h6>
+  </footer>
 </body>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"> </script>
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{% static 'compiler/main.js' %}"></script>
-    <script src="{% static 'compiler/edit_area_full.js' %}"></script>
-    <script>
-      var text="c"
-      function getlang()
-      {
-      var e = document.getElementById("id_language");
-      var value = e.options[e.selectedIndex].value;
-      var text = e.options[e.selectedIndex].text;
-      console.log(value)
-      
-     
-      console.log(text)
-      console.log("text"+text)
-        editAreaLoader.init({
-          id : "id_code"		// textarea id
-          ,syntax: text			// syntax to be uses for 
-          ,start_highlight: true		// to display with highlight mode on start-up
-        });
-      }
-      editAreaLoader.init({
-          id : "id_code"		// textarea id
-          ,syntax: "c"			// syntax to be uses for 
-          ,start_highlight: true		// to display with highlight mode on start-up
-        });
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{% static 'compiler/main.js' %}"></script>
+<script src="{% static 'compiler/edit_area_full.js' %}"></script>
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-tagsinput/1.3.6/jquery.tagsinput.min.js"></script>
 
-      
-      
-    
-      
-      </script>
-       <script>
-    
-       var doc=document.getElementById("iframe")
-        console.log(doc.src)
-        var link="https://www.youtube.com/embed/"
-       var  y=doc.src.split("/")[3]
-       console.log("hello".concat(y))
-       y=y.trim()
-        
-        doc.src=link.concat(y)
-    
-function mylink(link,id)
-{
-  console.log("mylink"+link)
-  var newlink="https://www.youtube.com/embed/"
-       var  y=link.split("/")[3]
-       console.log("hello".concat(y))
-       y=y.trim()
-        
-        newlink=newlink.concat(y)
-        console.log("new link"+newlink)
-        var doc=document.getElementById(id)
-        doc.src=newlink
-        
-}
-    </script>
+
+<script>
+  var text = "c"
+
+  function getlang() {
+    var e = document.getElementById("id_language");
+    var value = e.options[e.selectedIndex].value;
+    var text = e.options[e.selectedIndex].text;
+    console.log(value)
+
+
+    console.log(text)
+    console.log("text" + text)
+    editAreaLoader.init({
+      id: "id_code" // textarea id
+        ,
+      syntax: text // syntax to be uses for 
+        ,
+      start_highlight: true // to display with highlight mode on start-up
+    });
+  }
+  editAreaLoader.init({
+    id: "id_code" // textarea id
+      ,
+    syntax: "c" // syntax to be uses for 
+      ,
+    start_highlight: true // to display with highlight mode on start-up
+  });
+</script>
+<script>
+  /*  var doc = document.getElementById("iframe")
+  console.log(doc.src)
+  var link = "https://www.youtube.com/embed/"
+  var y = doc.src.split("/")[3]
+  console.log("hello".concat(y))
+  y = y.trim()
+
+  doc.src = link.concat(y)
+
+  function mylink(link, id) {
+    console.log("mylink" + link)
+    var newlink = "https://www.youtube.com/embed/"
+    var y = link.split("/")[3]
+    console.log("hello".concat(y))
+    y = y.trim()
+
+    newlink = newlink.concat(y)
+    console.log("new link" + newlink)
+    var doc = document.getElementById(id)
+    doc.src = newlink
+
+*/
+</script>
+<script>
+  hljs.initHighlightingOnLoad();
+</script>
+<script type="text/javascript">
+  $('.likebutton').click(function () {
+    var id;
+    id = $(this).attr("data-catid");
+    console.log(id)
+    $.ajax({
+      type: "GET",
+      url: "{% url 'like' %}",
+      data: {
+        post_id: id
+      },
+      success: function (data) {
+        $("span[count=" + query_id + "]").text(data)
+
+        $('#like' + id).removeClass('btn btn-primary btn-lg');
+        $('#like' + id).addClass('btn btn-success btn-lg');
+      }
+    })
+  });
+</script>
+<!---Like button query Discussion-->
+
+<script>
+  $(function () {
+
+    var retval = []
+    $('iframe').each(function () {
+      retval.push($(this).attr('id'))
+    })
+    //return retval
+    console.log(retval)
+    var newlink = "https://www.youtube.com/embed/"
+    for (var i in retval) {
+      id = retval[i]
+      var link = $("#" + id).attr("src")
+      //console.log(newlink.concat(link.split("/")[3]))
+      youtubelink = link.split("/")[3]
+      console.log(youtubelink)
+      newsrc = newlink.concat(youtubelink)
+      $("#" + id).attr("src", newsrc)
+
+    }
+  })
+</script>
+{% block extrahead %}
+<script>
+  window.CKEDITOR_BASEPATH = '/static/ckeditor/ckeditor/';
+</script>
+{{ block.super }}
+{% endblock %}
+
 </html>

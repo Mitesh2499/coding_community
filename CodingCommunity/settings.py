@@ -43,8 +43,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'tutorials.apps.TutorialsConfig',
     'queries.apps.QueriesConfig',
-    'project.apps.ProjectConfig'
-
+    'project.apps.ProjectConfig',
+    'ckeditor',
+    'ckeditor_uploader',
+    'taggit',
+   
    
 ]
 
@@ -121,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'GMT'
 
 USE_I18N = True
 
@@ -129,15 +132,30 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+     
+        'height': 'auto',
+        'class':'form-control',
+        'toolbar_Custom': [
+            ['CodeSnippet','Styles','Format','Bold', 'Italic', 'Underline'],
+            ['Link','Unlink','Anchor'],
+            ['Smiley'],['source'],
+           ['NumberedList', 'BulletedList'],
+        ],
+        'extraPlugins':'codesnippet',
+    }
+}
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT= os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT= os.path.join(BASE_DIR, 'static')
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 MEDIA_URL='/media/'
+CKEDITOR_UPLOAD_PATH = "/uploads"
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

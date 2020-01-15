@@ -1,0 +1,249 @@
+{% extends 'compiler/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container bg-mybg">
+    <div class="row ">
+        <div class="ml-auto">
+            <a href="{% url 'user-post' user %}" class="btn btn-success m-2"><i class=""></i> {{ user }} Posts</a>
+
+            <a href="{% url 'post-form' %}" class="btn btn-primary m-2"><i class=""></i> Create Post</a>
+
+        </div>
+
+    </div>
+    <div class="row   ">
+
+        <div class="col-md-8 mx-auto">
+
+            {% for post,likes,commentcount,comments,user_liked in  data %}
+            <div class="card  shadow mt-5">
+                <div class="card-img px-3 py-2">
+                    <div class="d-flex">
+
+                        <img src="{{ post.author.profile.image.url  }}" alt=""
+                            class=" float-left img-fluid img-thumbnail rounded-circle icon">
+
+                        <h6 class="align-self-center pl-3 pt-1">{{post.author}}</h6>
+
+                    </div>
+                </div>
+                {% if post.post %}
+                <div class="">
+                    <img src="{{ post.post.url }}" alt="" class="img-fluid  " style="width:100%;height:100%">
+                </div>
+                {% endif %}
+
+                <div class="p-3">
+                    <div class="py-1">
+                        <div class="caption p-0">
+                            <p>
+                                {{post.description | safe}}
+                            </p>
+                        </div>
+                        {% if user_liked %}
+                        <i class="fa fa-heart pr-2" liked="true" style="color:#F00" type_btn="question"
+                            btn_id="{{ post.id }}"></i>
+
+                        {% else %}
+                        <i class="fa fa-heart-o pr-2" liked="false" type_btn="question" btn_id="{{ post.id }}"></i>
+
+                        {% endif %}
+                        <i class="fa fa-comment-o pr-2"></i>
+                        <i class="fa fa-share-square-o pr-2"></i>
+
+
+
+
+                        <p><span class="like-count" post_id="{{ post.id }}">{{ likes }} </span> Likes</p>
+
+                        <!--<button class="btn btn-sm btn-light" type_btn="question" style="background: rgb(224, 224, 224);"
+                            btn_id="{{ post.id }}">Like</button>
+``                      -->
+
+
+
+
+                        <div class="comment py-1" comments="{{ post.id }}">
+                            {% for comment in comments %}
+                            <p class="user-com"><span class="font-weight-bold ">{{comment.user}}</span>
+                                {{comment.comment_text}}</p>
+                            <!-- <p id="date-time">{{comment.date_upload }}</p>-->
+
+                            {% endfor %}
+
+                        </div>
+
+
+
+                        <p class=" text-muted" view="{{ post.id }}">view all <span
+                                comment_count_id="{{ post.id }}">{{ commentcount }}</span> comment</p>
+
+                        <div>
+                            <form method="POST" class="form-inline">
+                                {% csrf_token %}
+                                <div class="input-group flex-fill">
+                                    <input type="text" comment_id="{{ post.id }}" name="comment" class="form-control  "
+                                        placeholder=" comment here...." style="border-radius:0">
+
+                                    <div class="input-group-append">
+                                        <input type="button" class="form-control  btn btn-outline-primary   "
+                                            style="border-radius:0" value="comment" post_comment="{{ post.id }}">
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        post_comments = $(".comment")
+        //console.log(post_comments)
+
+        $("p[view]").click(function () {
+            i = $(this).attr("view")
+            comment_count = $("span[comment_count_id=" + i + "]").text()
+            console.log(comment_count)
+            if ($("p[view=" + i + "]").text() == "show less") {
+                $(".comment").each(function (j, ele) {
+
+                    //ch=$("div[comments="+i+"]").children().last().css({"background":"red"}).show()
+                    //console.log(ch)
+
+                    l = $("div[comments=" + j + "]").children().length
+                    // console.log(l)
+
+                    $("div[comments=" + j + "]").children().slice(0, l - 1).hide()
+                    //$(".user-com").last().css({"background":"red"}).show()
+                    //console.log(ele)
+                    console.log(comment_count)
+                    view_all = "view all  <span comment_count_id=" + i + ">" + comment_count +
+                        "</span> comment"
+
+                    $("p[view=" + i + "]").html(view_all)
+
+                })
+
+            } else {
+                $("div[comments=" + i + "]").children().show()
+                $(this).text("show less")
+            }
+
+
+        })
+
+        i = $("p[view]").attr("view")
+        console.log("post id" + i)
+
+
+
+
+
+        $(".comment").each(function (i, ele) {
+
+            //ch=$("div[comments="+i+"]").children().last().css({"background":"red"}).show()
+            //console.log(ch)
+
+            l = $("div[comments=" + i + "]").children().length
+            // console.log(l)
+
+            $("div[comments=" + i + "]").children().slice(0, l - 1).hide()
+            // $(".user-com").last().css({"background":"red"}).show()
+            //console.log(ele)
+        })
+
+        id = $("button[btn_id]").attr("btn_id")
+        type = $("button[type_btn]").attr("type_btn")
+        console.log(id, type)
+
+
+    })
+    $(document).ready(function () {
+        $("i[liked=false]").click(function () {
+            $(this).removeClass("fa-heart-o")
+            $(this).addClass("fa-heart")
+            $(this).css({
+                "color": "#F00"
+            })
+        })
+
+        $("i[btn_id]").click(function () {
+            post_id = $(this).attr("btn_id")
+            type = $("button[type_btn]").attr("type_btn")
+            console.log(post_id)
+
+
+
+            $.ajax({
+                url: "./ajax/post_like",
+                data: {
+                    'post_id': post_id
+
+                },
+                success: function (data) {
+                    console.log(data)
+
+                    $("span[post_id=" + post_id + "]").text(data)
+                    if (data.is_taken) {
+                        console.log(data)
+                        alert("A user with this username already exists.");
+                    }
+                }
+
+            })
+        })
+
+    })
+
+    $(document).ready(function () {
+        console.log("{{ user }}")
+
+        $("input[post_comment]").click(function () {
+            post_id = $(this).attr("post_comment")
+            console.log(post_id)
+
+            comment = $("input[comment_id=" + post_id + "]").val()
+
+            if (comment != "") {
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/comment/",
+                    data: {
+                        'post_id': post_id,
+                        'comment': comment,
+
+                    },
+                    success: function (data) {
+                        console.log(data)
+                        $("span[comment_count_id=" + post_id + "]").text(data)
+
+                        block =
+                            "<p class='user-com'><span class='font-weight-bold '>{{user}}</span> " +
+                            comment + "</p>"
+                        $("div[comments=" + post_id + "]").append(block)
+                    }
+
+                })
+            }
+
+
+        })
+
+    });
+</script>
+
+
+{% endblock content %}

@@ -2,21 +2,131 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
+<style>
+    .post-img {
+        width: 100%;
+        height: 200px;
+    }
+</style>
 <div class="container content-section mt-3 shadow-lg p-3">
-        <a href="{% url 'profile' %}"  class="btn  "><i class="fas fa-user"></i> {{ user.username }}</a>
-   
+    <a href="{% url 'profile' %}" class="btn float-right "><i class="fas fa-edit"></i> {{ user.username }}</a>
+
     <div class="media">
-       <a href="{{ user.profile.image.url }}"> <img width="100" height="100" src="{{ user.profile.image.url }}" class="rounded-circle account-img img-thumbnail img-fluid img">
-       </a>
-       
+        <a href="{{ user.profile.image.url }}"> <img src="{{ user.profile.image.url }}"
+                class="rounded-circle account-img img-thumbnail img-fluid img" width="100" height="100">
+        </a>
+
         <div class="media-body pl-2">
             <h2 class="account-heading font-weight-bold">{{ user.username }}</h2>
             <p class="text-secondary">{{ user.email }}</p>
             <p class="lead bio">{{ user.profile.bio }}</p>
+
+
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-4 mx-auto">
+                    <div class="jumbotron p-4 shadow">
+                        <a href="{% url 'follower' %}" class="text-dark">
+                            <h6>Follower <span>{{ follower }}</span></h6>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-4 mx-auto">
+
+                    <div class="jumbotron p-4 shadow">
+                        <a href="{% url 'following' %}" class="text-dark">
+                            <h6>Following <span>{{ following }}</span></h6>
+                        </a>
+                    </div>
+
+                </div>
+            </div>
         </div>
     </div>
-   
-</div>
+    <div class="row mt-3">
+        {% for post in posts %}
 
- 
+        {% if post.post %}
+        <div class="col-4">
+
+            <div class="overlay" overlay_id="{{ post.id }}">
+                <h6>{{ post.id }}</h6>
+            </div>
+            <div class="post" post_hover_id="{{ post.id }}">
+                <a href=" {% url 'post-update' post.id %} " class="" post_hover_id="{{ post.id }}">
+                    <img src="{{ post.post.url }}" alt="" class="img-fluid image post-img">
+
+                </a>
+                <div class="middle" hover_id="{{ post.id }}">
+                    <div class="d-flex">
+                        <a href="{% url 'post-update' post.id %}"><i class="fas fa-edit text-dark p-2"></i></a>
+                        <a href="{% url 'single_post_view' post.id %}"><i class="fas fa-eye p-2"></i></a>
+
+
+                        <i class="fas fa- p-2"></i>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+        {% endif %}
+
+        {% endfor %}
+    </div>
+
+</div>
+<style>
+    .overlay {
+
+
+
+        background-color: #000;
+
+        opacity: 0.5;
+        z-index: 1;
+    }
+
+    .middle {
+        transition: .5s ease;
+        opacity: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        text-align: center;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $("div[overlay_id]").hide()
+        var overlay = jQuery('<div id="overlay"> </div>');
+
+        $("div[post_hover_id]").mouseenter(function () {
+            id = $(this).attr("post_hover_id")
+            $("a[post_hover_id=" + id + "]").addClass("overlay")
+            $("div[hover_id=" + id + "]").show()
+            $("div[hover_id=" + id + "]").css({
+                "opacity": 1
+            })
+
+        })
+
+        $("div[post_hover_id]").mouseleave(function () {
+            id = $(this).attr("post_hover_id")
+            $("a[post_hover_id=" + id + "]").removeClass("overlay")
+            $("div[hover_id=" + id + "]").hide()
+            $("div[hover_id=" + id + "]").css({
+                "opacity": 0
+            })
+
+        })
+
+
+    })
+</script>
+
 {% endblock content %}
